@@ -11,6 +11,12 @@ You are an Executive Producer within the company and are creating a system to si
 * Movies with attributes title and release date
 * Actors with attributes name, age and gender
 
+Create a postgres db:
+
+```shell
+sudo -u postgres psql -c "CREATE DATABASE fsnd_capstone;"
+```
+
 ## Endpoints
 
 * GET /actors and /movies
@@ -23,11 +29,11 @@ You are an Executive Producer within the company and are creating a system to si
 * Casting Assistant
   * Can view actors and movies
 * Casting Director
-  * All permissions a Casting Assistant has and…
+  * All permissions a Casting Assistant has and...
   * Add or delete an actor from the database
   * Modify actors or movies
 * Executive Producer
-  * All permissions a Casting Director has and…
+  * All permissions a Casting Director has and...
   * Add or delete a movie from the database
 
 ## Tests
