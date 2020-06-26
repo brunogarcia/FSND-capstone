@@ -37,16 +37,33 @@ def setup_db(app, database_path=database_path):
 # ----------------------------------------------------------------------------#
 
 
-class Movies(db.Model):
-    '''
-    Movies
+actors = db.Table(
+    'actors',
+    db.Column(
+        'movie_id',
+        db.Integer,
+        db.ForeignKey('movie.id'),
+        primary_key=True
+    ),
+    db.Column(
+        'actor_id',
+        db.Integer,
+        db.ForeignKey('actor.id'),
+        primary_key=True
+    )
+)
 
-    '''
-    __tablename__ = 'movies'
 
-  id = Column(Integer, primary_key=True)
-  title = Column(String)
-  release_date = Column(DateTime)
+class Movie(db.Model):
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    release_date = Column(DateTime, nullable=False)
+    actors = db.relationship(
+        'Actor',
+        secondary=actors,
+        lazy='subquery',
+        backref=db.backref('movies', lazy=True)
+    )
 
     def __init__(self, title, release_date):
         self.title = title
@@ -65,23 +82,17 @@ class Movies(db.Model):
 
     def format(self):
         return {
-          'id': self.id,
-          'title': self.title,
-          'release_date': self.release_date,
+            'id': self.id,
+            'title': self.title,
+            'release_date': self.release_date,
         }
 
 
-class Actors(db.Model):
-    '''
-    Actors
-
-    '''
-    __tablename__ = 'actors'
-
+class Actor(db.Model):
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    age = Column(String)
-    gender = Column(String)
+    name = Column(String, nullable=False)
+    age = Column(String, nullable=False)
+    gender = Column(String, nullable=False)
 
     def __init__(self, name, age, gender):
         self.name = name
