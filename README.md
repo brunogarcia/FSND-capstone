@@ -6,16 +6,36 @@ The Casting Agency models a company that is responsible for creating movies and 
 
 You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
 
-## Models
+## Initial configuration
 
-* Movies with attributes title and release date
-* Actors with attributes name, age and gender
-
-Create a postgres db:
+Create a postgres database:
 
 ```shell
 sudo -u postgres psql -c "CREATE DATABASE fsnd_capstone;"
 ```
+
+Create a migration repository:
+
+```shell
+flask db init
+```
+
+Then generate an initial migration:
+
+```shell
+flask db migrate -m "Initial migration."
+```
+
+Finally, apply the migration to the database:
+
+```shell
+flask db upgrade
+```
+
+## Models
+
+* Movies with attributes title and release date
+* Actors with attributes name, age and gender
 
 ## Endpoints
 

@@ -4,6 +4,8 @@
 
 from sqlalchemy import Column, String, Integer, DateTime
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 
 # ----------------------------------------------------------------------------#
 # App Config.
@@ -31,6 +33,7 @@ def setup_db(app, database_path=database_path):
     db.app = app
     db.init_app(app)
     db.create_all()
+    Migrate(app, db)
 
 # ----------------------------------------------------------------------------#
 # Models.
