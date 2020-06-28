@@ -2,7 +2,7 @@
 # Imports
 # ----------------------------------------------------------------------------#
 
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, Enum, String, Integer, DateTime
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -94,12 +94,12 @@ class Movie(db.Model):
 class Actor(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    age = Column(String, nullable=False)
-    gender = Column(String, nullable=False)
+    bday = Column(DateTime, nullable=False)
+    gender = Column(Enum('M', 'F', name='gender_types'), default='M')
 
-    def __init__(self, name, age, gender):
+    def __init__(self, name, bday, gender):
         self.name = name
-        self.age = age
+        self.bday = bday
         self.gender = gender
 
     def insert(self):
@@ -117,6 +117,6 @@ class Actor(db.Model):
         return {
           'id': self.id,
           'name': self.name,
-          'age': self.age,
+          'bday': self.bday,
           'gender': self.gender,
         }
